@@ -1,13 +1,15 @@
-module.exports = (Discord, client, message) => {
-    const prefix = '-';
-    if (!message.content.startsWith(prefix) || message.author.bot) return;
+module.exports = (Discord, client, message, ) => {
+    const prefix = 'babe';
 
-    const args = message.content.slice(prefix.length).trim().split(/ +/);
-    const cmd = args.shift().toLowerCase();
+    if (message.content.startsWith(prefix)) {
 
-    const command = client.commands.get(cmd);
+        const args = message.content.slice(prefix.length).trim().split(/ +/);
+        const cmd = args.shift().toLowerCase();
 
-    if (command) command.execute(client, message, args, Discord);
+        const command = client.commands.get(cmd);
 
-    console.log(message.content)
+        if (command) command.execute(client, message, args, Discord);
+
+        console.log(message.content)
+    } else return
 }
