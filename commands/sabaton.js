@@ -2,7 +2,7 @@ const ffmpeg = require('ffmpeg-static');
 const fs = require('fs');
 const path = require('path');
 
-console.log(path.join(process.cwd(), 'music'));
+
 
 module.exports = {
     name: 'sabaton',
