@@ -1,6 +1,6 @@
 module.exports = {
-    name: 'stop',
-    async execute(client, message, args, Discord) {
+    name: 'st',
+    async execute(message, args, cmd, client, Discord) {
         const voiceChannel = message.member.voice.channel;
 
         if (voiceChannel) {
