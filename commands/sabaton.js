@@ -5,12 +5,12 @@ const path = require('path');
 
 
 module.exports = {
-    name: 'sabaton',
+    name: 'playlist',
     connection: null,
     audioDir: path.join(process.cwd(), 'music'),
     music: null,
     dispatcher: null,
-    async execute(client, message, args, Discord) {
+    async execute(message, args, cmd, client, Discord) {
         try {
             const voiceChannel = message.member.voice.channel;
 
