@@ -2,7 +2,7 @@ require('dotenv').config();
 const axios = require('axios');
 module.exports = {
     name: 'weather',
-    async execute(client, message, args, Discord) {
+    async execute(message, args, cmd, client, Discord) {
         {
             //openweathermap api token
             const apiKey = process.env.WEATHER_API_TOKEN
