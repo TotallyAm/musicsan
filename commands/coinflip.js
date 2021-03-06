@@ -1,11 +1,15 @@
 module.exports = {
     name: 'coinflip',
-    description: "generates random number",
-    execute(client, message, args, Discord) {
+    description: "does a coin flip",
+    execute(message, args, cmd, client, Discord) {
         randomNumber = Math.floor(Math.random() * 2 + 1);
         console.log(randomNumber)
         if (randomNumber === 1) {
             message.channel.send('Heads')
-        } else message.channel.send('Tails')
+            message.channel.send('https://upload.wikimedia.org/wikipedia/en/a/a1/British_one_penny_coin_2016_obverse.png')
+        } else {
+            message.channel.send('Tails')
+            message.channel.send('https://upload.wikimedia.org/wikipedia/en/f/f3/British_one_penny_coin_2015_reverse.png')
+        }
     }
 }
