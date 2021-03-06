@@ -1,5 +1,5 @@
 module.exports = {
-    name: 'musicsan?',
+    name: 'hi',
     execute(client, message, args, Discord) {
         const response = [
             'はい？',
@@ -26,15 +26,3 @@ module.exports = {
     }
 }
 
-//'はい？'
-/*randomNumber2 = Math.floor(Math.random() * 4 + 1);
-console.log(randomNumber);
-if (randomNumber === 1) {
-    message.channel.send('はい？');
-} else if (randomNumber === 2) {
-    message.channel.send('今は何だ、ばか？');
-} else if (randomNumber === 3) {
-    message.channel.send('Your mum');
-} else {
-    message.channel.send('Nandesuka?')
-} */
