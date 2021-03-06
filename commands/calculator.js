@@ -1,7 +1,7 @@
 module.exports = {
     name: 'calculate',
     sum: null,
-    execute(client, message, args, Discord) {
+    execute(message, args, cmd, client, Discord) {
         const x = Number(args[0]);
         const y = Number(args[2]);
         const operative = args[1];
