@@ -1,6 +1,7 @@
 module.exports = {
     name: 'hi',
-    execute(client, message, args, Discord) {
+    aliases: ['hai', 'ohayo', 'moshimoshi?', 'hello'],
+    execute(message, args, cmd, client, Discord) {
         const response = [
             'はい？',
             '今は何だ、ばか？',
@@ -21,8 +22,6 @@ module.exports = {
         function randomResponse(response) {
             return response[Math.floor(Math.random() * (response.length - 1))];
         }
-        console.log(randomResponse(response));
         message.channel.send(randomResponse(response));
     }
 }
-
