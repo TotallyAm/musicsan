@@ -1,8 +1,6 @@
 module.exports = {
     name: 'do',
-    description: "Polo!",
-    execute(client, message, args, Discord) {
-        //console.log(message.sender)
+    execute(message, args, cmd, client, Discord) {
         if (args[0] === 'laundry') {
             return message.channel.send('B-baka! Do your own laundry :woman_facepalming:');
         } else if (!args.length) {
