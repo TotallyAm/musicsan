@@ -4,28 +4,52 @@ module.exports = {
     name: 'weather',
     async execute(client, message, args, Discord) {
         {
+            //openweathermap api token
             const apiKey = process.env.WEATHER_API_TOKEN
-            const location = args[0]
+            const location = args
             axios
                 .get(
                     `https://api.openweathermap.org/data/2.5/weather?q=${location}&units=metric&appid=${apiKey}`
                 )
                 .then(response => {
                     let apiData = response;
+                    //useful data from api
                     let currentTemp = Math.ceil(apiData.data.main.temp)
-                    let maxTemp = apiData.data.main.temp_max;
-                    let minTemp = apiData.data.main.temp_min;
+                    let feelsLike = apiData.data.main.feels_like
                     let humidity = apiData.data.main.humidity;
-                    let wind = apiData.data.wind.speed;
-                    let author = message.author.username
-                    let profile = message.author.displayAvatarURL
-                    let icon = apiData.data.weather[0].icon
-                    let country = apiData.data.sys.country
+                    let wind = Math.round(apiData.data.wind.speed * 3.6);
+                    let windDir = apiData.data.wind.deg;
+                    let country = apiData.data.sys.country;
                     let pressure = apiData.data.main.pressure;
-                    let cloudness = apiData.data.weather[0].description;
-                    message.channel.send(`Okay ${author}, the temperature in ${location} is ${currentTemp}C, the wind and humidty is currently ${wind}km/h and ${humidity}% respectively.`);
+                    let weatherType = apiData.data.weather[0].description.toUpperCase();
+                    let cloudiness = apiData.data.clouds.all;
+                    let iconID = apiData.data.weather[0].icon;
+                    let city = apiData.data.name;
+                    const icon = (`https://openweathermap.org/img/w/${iconID}.png`)
+                    const windMph = Math.round(wind / 1.609344);
+                    //discord embed
+                    const weatherEmbed = new Discord.MessageEmbed()
+                        .setColor('#8899ee')
+                        .setTitle(`Weather in ${city}, ${country}`)
+                        .setThumbnail(icon)
+                        .setDescription(weatherType)
+                        .addFields(
+                            { name: 'Current Temperature', value: `${currentTemp}C.`, inline: true },
+                            { name: 'Feels Like', value: `${feelsLike}C.`, inline: true }, 
+                            { name : 'Wind', value: `${wind}km/h, or ${windMph}mph at ${windDir} degrees.`},
+                            { name : 'Humidity', value: `${humidity}%.`, inline: true},
+                            { name : 'Pressure', value: `${pressure}hPa.`, inline: true},
+                            { name : 'Cloudiness', value: `${cloudiness}%.`},
+
+
+                        )
+
+                    message.channel.send(weatherEmbed);
+
+
                 }).catch(err => {
-                    message.reply(`Something went wrong, is ${location} even real? BAKA!`);
+                     message.reply(`Something went wrong, is ${location} even real? BAKA!`);
+                    console.log(err)
                 })
 
         }
