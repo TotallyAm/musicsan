@@ -1,41 +1,48 @@
 module.exports = {
     name: 'rock',
     aliases: ['rock', 'paper', 'scissors'],
+    choice: null,
     result: null,
     execute(message, args, cmd) {
         randomNumber = Math.floor(Math.random() * 3 + 1);
-        console.log(randomNumber)
-        switch(randomNumber) {
+        switch (randomNumber) {
             case 1:
-                this.result = 'rock'
+                this.choice = 'rock'
                 break;
             case 2:
-                this.result = 'paper'
+                this.choice = 'paper'
                 break;
             case 3:
-                this.result = 'scissors'
+                this.choice = 'scissors'
                 break;
         }
-        switch(cmd){
-        
-         case 'rock':
-                if(this.result === 'paper'){
-                    message.channel.send(`I chose ${this.result}, you lose!`)
-                } else message.channel.send(`I chose ${this.result}, you win!`)
+        switch (cmd) {
+
+            case 'rock':
+                if (this.choice === 'paper') {
+                    this.result = 'I win'
+                } else if (this.choice === cmd) {
+                    this.result = `It's a tie`
+                } else this.result = 'you win'
                 break;
-        
-         case 'paper':
-                if(this.result === 'scissors'){
-                    message.channel.send(`I chose ${this.result}, you lose!`)
-                } else message.channel.send(`I chose ${this.result}, you win!`)
+
+            case 'paper':
+                if (this.choice === 'scissors') {
+                    this.result = 'I win'
+                } else if (this.choice === cmd) {
+                    this.result = `It's a tie`
+                } else this.result = 'you win'
                 break;
-            
-         case 'scissors':
-                    if(this.result === 'rock'){
-                        message.channel.send(`I chose ${this.result}, you lose!`)
-                    } else message.channel.send(`I chose ${this.result}, you win!`)
-                    break;
+
+            case 'scissors':
+                if (this.choice === 'rock') {
+                    this.result = 'I win'
+                } else if (this.choice === cmd) {
+                    this.result = `It's a tie`
+                } else this.result = 'you win'
+                break;
         }
+        message.channel.send(`I chose ${this.choice}, ${this.result}!`);
 
     }
 }
