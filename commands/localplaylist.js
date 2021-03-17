@@ -10,7 +10,7 @@ module.exports = {
     audioDir: path.join(process.cwd(), 'music'),
     music: null,
     dispatcher: null,
-    async execute(message, args, cmd, client, Discord) {
+    async execute(message) {
         try {
             const voiceChannel = message.member.voice.channel;
 

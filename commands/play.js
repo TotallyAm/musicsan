@@ -1,6 +1,7 @@
 const ytdl = require('ytdl-core');
 const ytSearch = require('yt-search');
 const message = require('../events/guild/message');
+const { dispatcher } = require('./localplaylist');
 
 const queue = new Map()
 
@@ -27,7 +28,7 @@ module.exports = {
 
                 if (ytdl.validateURL(args[0])) {
                     const songInfo = await ytdl.getInfo(args[0]);
-                    song = { title: songInfo.videoDetails.title, url: song_info.videoDetails.video_url }
+                    song = { title: songInfo.videoDetails.title, url: songInfo.videoDetails.video_url }
                 } else {
                     const videoFinder = async(query) => {
                         const videoResult = await ytSearch(query);
@@ -106,7 +107,7 @@ const videoPlayer = async(guild, song) => {
     await songQueue.textChannel.send(`I'm playing ${song.title} now, like it or not!`);
 }
 
-const skipSong = (message, serverQueue) => {
+const skipSong = (message, serverQueue,) => {
     if (!message.member.voice.channel) return message.channel.send('No! You have to be in a voice channel you utter moron!')
     if (!serverQueue) {
         return message.channel.send('But there is nothing to skip?');
@@ -114,11 +115,16 @@ const skipSong = (message, serverQueue) => {
     serverQueue.connection.dispatcher.end();
 }
 
-const stopSong = (message, serverQueue) => {
+const stopSong = (message, serverQueue, voiceChannel) => {
     if (!message.member.voice.channel) return message.channel.send('No! You have to be in a voice channel you utter moron!')
     if (!serverQueue) {
         return message.channel.send('But there is nothing to stop');
     }
+    if (dispatcher === null){
+        voiceChannel.leave();
+        queue.delete(guild.id);
+    }
     serverQueue.songs = [];
     serverQueue.connection.dispatcher.end();
+    voiceChannel.leave();
 }

@@ -1,7 +1,7 @@
 module.exports = {
     name: 'hi',
-    aliases: ['hai', 'ohayo', 'moshimoshi?', 'hello'],
-    execute(message, args, cmd, client, Discord) {
+    aliases: ['hai', 'ohayo', 'moshimoshi?', 'hello', 'はい?'],
+    execute(message) {
         const response = [
             'はい？',
             '今は何だ、ばか？',

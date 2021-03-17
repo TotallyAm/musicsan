@@ -5,6 +5,7 @@ module.exports = {
     result: null,
     execute(message, args, cmd) {
         randomNumber = Math.floor(Math.random() * 3 + 1);
+        //convert the number to a choice
         switch (randomNumber) {
             case 1:
                 this.choice = 'rock'
@@ -17,7 +18,7 @@ module.exports = {
                 break;
         }
         switch (cmd) {
-
+            //use the choice to determine the outcome
             case 'rock':
                 if (this.choice === 'paper') {
                     this.result = 'I win'
