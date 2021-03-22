@@ -6,7 +6,7 @@ module.exports = {
         {
             //openweathermap api token
             const apiKey = process.env.WEATHER_API_TOKEN
-            const location = args
+            const location = args.join(' ')
             axios
                 .get(
                     `https://api.openweathermap.org/data/2.5/weather?q=${location}&units=metric&appid=${apiKey}`
