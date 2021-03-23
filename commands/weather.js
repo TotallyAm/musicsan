@@ -27,19 +27,34 @@ module.exports = {
                     let city = apiData.data.name;
                     const icon = (`https://openweathermap.org/img/w/${iconID}.png`)
                     const windMph = Math.round(wind / 1.609344);
+                    
+                    //api returns unix time, this function will convert it to a 24h format
+                    function unixConverter(t) {
+                        var date = new Date(t * 1000);
+                        var hours = date.getHours();
+                        var minutes = "0" + date.getMinutes();
+                      return  hours + ':' + minutes.substr(-2);
+
+
+                    }
+                    const sunset = unixConverter(apiData.data.sys.sunset);
+                    const sunrise = unixConverter(apiData.data.sys.sunrise);
+
                     //discord embed
                     const weatherEmbed = new Discord.MessageEmbed()
-                        .setColor('#8899ee')
+
+                    .setColor('#8899ee')
                         .setTitle(`Weather in ${city}, ${country}`)
                         .setThumbnail(icon)
                         .setDescription(weatherType)
-                        .addFields(
-                            { name: 'Current Temperature', value: `${currentTemp}C.`, inline: true },
-                            { name: 'Feels Like', value: `${feelsLike}C.`, inline: true }, 
-                            { name : 'Wind', value: `${wind}km/h, or ${windMph}mph at ${windDir} degrees.`},
-                            { name : 'Humidity', value: `${humidity}%.`, inline: true},
-                            { name : 'Pressure', value: `${pressure}hPa.`, inline: true},
-                            { name : 'Cloudiness', value: `${cloudiness}%.`},
+                        .addFields({ name: 'Current Temperature', value: `${currentTemp}C.`, inline: true },
+                         { name: 'Feels Like', value: `${feelsLike}C.`, inline: true }, 
+                         { name: 'Wind', value: `${wind}km/h, or ${windMph}mph at ${windDir} degrees.` },
+                         { name: 'Humidity', value: `${humidity}%.`, inline: true },
+                         { name: 'Pressure', value: `${pressure}hPa.`, inline: true }, 
+                         { name: 'Cloudiness', value: `${cloudiness}%.` },
+                         { name: 'Sunrise', value: sunrise, inline: true},
+                         { name: 'Sunset', value: sunset, inline: true}
 
 
                         )
@@ -48,7 +63,7 @@ module.exports = {
 
 
                 }).catch(err => {
-                     message.reply(`Something went wrong, is ${location} even real? BAKA!`);
+                    message.reply(`Something went wrong, is ${location} even real? BAKA!`);
                     console.log(err)
                 })
 
