@@ -27,13 +27,15 @@ module.exports = {
                     let city = apiData.data.name;
                     const icon = (`https://openweathermap.org/img/w/${iconID}.png`)
                     const windMph = Math.round(wind / 1.609344);
-                    
-                    //api returns unix time, this function will convert it to a 24h format
+                    let timezone = apiData.data.timezone
+                    //api returns unix time, this function will convert it to a 24h format and convert to local time
                     function unixConverter(t) {
-                        var date = new Date(t * 1000);
+                        var date = new Date((t * 1000) + (timezone * 1000));
                         var hours = date.getHours();
                         var minutes = "0" + date.getMinutes();
                       return  hours + ':' + minutes.substr(-2);
+   
+
 
 
                     }
